@@ -150,7 +150,7 @@ static bool parse_params(AVCodecContext *context, char **opts)
 			*assign = 0;
 			value = assign+1;
 
-			if (av_opt_set(context->priv_data, name, value, 0)) {
+			if (av_opt_set(context, name, value, 0)) {
 				blog(LOG_WARNING, "Failed to set %s=%s", name, value);
 				ret = false;
 			}
@@ -169,7 +169,7 @@ static bool open_video_codec(struct ffmpeg_data *data)
 	int ret;
 
 	if (strcmp(data->vcodec->name, "libx264") == 0)
-		av_opt_set(context->priv_data, "preset", "veryfast", 0);
+		av_opt_set(context, "preset", "veryfast", 0);
 
 	if (opts) {
 		// libav requires x264 parameters in a special format which may be non-obvious
